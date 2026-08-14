@@ -1312,7 +1312,63 @@ section[id]{
         order:3;
         width:100%;
     }
+
+    /* ===========================
+       REDUCE GPU LOAD ON MOBILE
+       (fixes black/unpainted-region
+       rendering on low-end Android GPUs
+       caused by heavy layered blur +
+       multiple simultaneous animations)
+    =========================== */
+
+    /* Hide the heaviest floating/blurred decorative elements */
+    .floating-card,
+    .preview-tag{
+        display:none;
+    }
+
+    /* Drop backdrop-filter blur on layered/overlapping panels,
+       replace with solid dark background so depth still reads */
+    .dashboard,
+    .preview-card,
+    .eyebrow{
+        backdrop-filter:none;
+        background:#0d1220;
+    }
+
+    .navbar{
+        backdrop-filter:none;
+        background:rgba(10,10,10,.95);
+    }
+
+    /* Pause continuous animations that force ongoing repaint/composite */
+    .dashboard,
+    .floating-card{
+        animation:none;
+    }
+
+    .logo-track{
+        animation-duration:60s;
+    }
+
+    .progress-bar{
+        animation:none;
+        width:82%;
+    }
 }
+
+/* Respect users who've explicitly asked for reduced motion —
+   also mitigates the same GPU/compositing issue as a fallback
+   for devices that report this preference */
+@media (prefers-reduced-motion: reduce){
+    .dashboard,
+    .floating-card,
+    .logo-track,
+    .progress-bar{
+        animation:none !important;
+    }
+}
+
 /* ===========================
    PLATFORM DETAIL PAGE
 =========================== */
@@ -1480,6 +1536,45 @@ section[id]{
 
 .contact-email:hover{
     text-decoration:underline;
+}
+
+/* Contact form inputs — matches the site's dark surface/border tokens */
+.contact-box input,
+.contact-box textarea{
+    width:100%;
+    max-width:360px;
+    padding:14px 18px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:15px;
+}
+
+.contact-box input::placeholder,
+.contact-box textarea::placeholder{
+    color:var(--text-secondary);
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+}
+
+.contact-box textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.contact-box button{
+    margin-top:8px;
+}
+
+#contact-status{
+    color:#3ee08f;
+    font-size:14px;
 }
 
 /* ===========================

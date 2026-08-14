@@ -13,10 +13,16 @@
 
     <section class="contact">
       <div class="container">
-        <div class="contact-box">
-          <p>Email us directly at:</p>
-          <a href="mailto:hello@kmeggie.com" class="contact-email">hello@kmeggie.com</a>
-        </div>
+        <form id="contact-form" class="contact-box">
+          <input type="text" id="contact-name" placeholder="Your name" required />
+          <input type="email" id="contact-email" placeholder="Your email" required />
+          <textarea id="contact-message" placeholder="Your message" required></textarea>
+          <button type="submit" class="primary">Send Message</button>
+          <p id="contact-status"></p>
+        </form>
+
+        <p>Or email us directly at:</p>
+        <a href="mailto:hello@kmeggie.com" class="contact-email">hello@kmeggie.com</a>
       </div>
     </section>
 
