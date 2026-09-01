@@ -1,21 +1,11 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [],
   build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        about: resolve(__dirname, "about.html"),
-        blog: resolve(__dirname, "blog.html"),
-        company: resolve(__dirname, "company.html"),
-        contact: resolve(__dirname, "contact.html"),
-        platform: resolve(__dirname, "platform.html"),
-        pricing: resolve(__dirname, "pricing.html"),
-        research: resolve(__dirname, "research.html"),
-        solutions: resolve(__dirname, "solutions.html"),
-      },
-    },
+    target: 'es2020',
+    sourcemap: true
   },
+  server: {
+    port: 5173
+  }
 });
